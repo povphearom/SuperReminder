@@ -14,34 +14,16 @@
     </data>
 
     <LinearLayout
+        android:padding="@dimen/fab_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Title" />
-
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rec_Locations"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:itemSpace="@{8}"
+            app:itemSpace="@{4}"
             app:itemViewBinder="@{view.itemViewBinder}"
             app:items="@{models.locations}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"

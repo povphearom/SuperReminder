@@ -1,6 +1,6 @@
 package com.phearom.superreminder.mappers;
 
-import com.phearom.api.repositories.models.LocationRealm;
+import com.phearom.superreminder.model.realm.LocationRealm;
 import com.phearom.superreminder.model.Location;
 
 import java.util.ArrayList;

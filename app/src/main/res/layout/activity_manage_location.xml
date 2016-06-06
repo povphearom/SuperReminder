@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.phearom.superreminder.ui.ManageLocationActivity" />
+
+        <variable
+            name="location"
+            type="com.phearom.superreminder.viewmodel.LocationViewModel" />
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context="com.phearom.superreminder.ui.ManageLocationActivity">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/location_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foreground="?selectableItemBackground"
+            android:hint="Choose your location"
+            android:onClick="@{view.onChoose()}"
+            android:text='@{location.location.lat +","+ location.location.lng}' />
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/content_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/location_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Location Name"
+                    android:text="@{location.name}" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/location_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:hint="Address"
+                    android:maxLines="4"
+                    android:minLines="4"
+                    android:text="@{location.address}" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/location_decard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{view.onDecard()}"
+                    android:text="Decard" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/location_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{view.onSave()}"
+                    android:text="Save" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/location_remove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{view.onRemove()}"
+                    android:text="Remove"
+                    android:theme="@style/ButtonDanger"
+                    android:visibility="gone" />
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+</layout>

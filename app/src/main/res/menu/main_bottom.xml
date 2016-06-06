@@ -6,11 +6,11 @@
         android:icon="@drawable/ic_schedule_white"
         android:title="Schedule"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_timeline"
-        android:icon="@drawable/ic_timeline_white"
-        android:title="Timeline"
-        app:showAsAction="always" />
+    <!--<item-->
+        <!--android:id="@+id/action_timeline"-->
+        <!--android:icon="@drawable/ic_timeline_white"-->
+        <!--android:title="Timeline"-->
+        <!--app:showAsAction="always" />-->
     <item
         android:id="@+id/action_room"
         android:icon="@drawable/ic_room_white"

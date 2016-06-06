@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ButtonDefault">
+        <item name="colorButtonNormal">#c5cbd4</item>
+    </style>
+
+    <style name="ButtonDanger">
+        <item name="android:textColor">#ffffff</item>
+        <item name="colorButtonNormal">#c42c2c</item>
+    </style>
+
+    <style name="ButtonPrimary">
+        <item name="android:textColor">#ffffff</item>
+        <item name="colorButtonNormal">#3180d9</item>
+    </style>
+
+    <style name="ButtonSuccess">
+        <item name="android:textColor">#ffffff</item>
+        <item name="colorButtonNormal">#31d958</item>
+    </style>
+</resources>

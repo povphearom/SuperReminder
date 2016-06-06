@@ -9,6 +9,7 @@ public class Location {
     private double lat;
     private double lng;
     private boolean alert;
+    private String address;
 
     public String getId() {
         return id;
@@ -48,5 +49,13 @@ public class Location {
 
     public void setAlert(boolean alert) {
         this.alert = alert;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

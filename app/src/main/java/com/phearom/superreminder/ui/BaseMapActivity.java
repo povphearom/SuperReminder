@@ -28,8 +28,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.phearom.api.keys.IntentKeys;
 import com.phearom.api.maps.BaseMarker;
 import com.phearom.api.repositories.RealmHelper;
-import com.phearom.api.repositories.models.LocationRealm;
-import com.phearom.api.services.LocationService;
+import com.phearom.superreminder.model.realm.LocationRealm;
+import com.phearom.superreminder.services.LocationService;
 
 import java.util.Map;
 

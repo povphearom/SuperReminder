@@ -31,8 +31,12 @@ public class RealmHelper {
         return mConfiguration;
     }
 
+    public Realm getRealm() {
+        return Realm.getInstance(getConfiguration());
+    }
+
     public <T extends RealmObject> void addObject(T object) {
-        Realm realm = Realm.getInstance(getConfiguration());
+        Realm realm = getRealm();
         realm.beginTransaction();
         realm.setAutoRefresh(true);
         realm.copyToRealmOrUpdate(object);
@@ -40,7 +44,7 @@ public class RealmHelper {
     }
 
     public <T extends RealmObject> void addObject(List<T> objects) {
-        Realm realm = Realm.getInstance(getConfiguration());
+        Realm realm = getRealm();
         realm.beginTransaction();
         realm.setAutoRefresh(true);
         realm.copyToRealmOrUpdate(objects);
@@ -48,12 +52,12 @@ public class RealmHelper {
     }
 
     public <T extends RealmObject> RealmResults<T> getObject(Class<T> clazz) {
-        Realm realm = Realm.getInstance(getConfiguration());
+        Realm realm = getRealm();
         return realm.where(clazz).findAll();
     }
 
     public <T extends RealmObject> void removeObject(RealmQuery<T> query) {
-        Realm realm = Realm.getInstance(getConfiguration());
+        Realm realm = getRealm();
         realm.beginTransaction();
         realm.setAutoRefresh(true);
         query.findFirst().removeFromRealm();
@@ -61,7 +65,7 @@ public class RealmHelper {
     }
 
     public <T extends RealmObject> void removeObject(Class<T> clazz, String field, Object value) {
-        Realm realm = Realm.getInstance(getConfiguration());
+        Realm realm = getRealm();
         realm.beginTransaction();
         realm.setAutoRefresh(true);
         RealmResults<T> data = realm.where(clazz).findAll();

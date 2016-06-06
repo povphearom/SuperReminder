@@ -35,7 +35,26 @@ public class LocationsViewModel extends BaseObservable {
         return locs;
     }
 
+    public void update(LocationViewModel locationViewModel) {
+        if (locations.size() > 0) {
+            int index = locations.indexOf(locationViewModel);
+            if (index > -1)
+                locations.set(index, locationViewModel);
+        }
+    }
+
+    public LocationViewModel findById(String id) {
+        for (LocationViewModel loc : locations) {
+            if (id.equals(loc.getId())) {
+                return loc;
+            }
+        }
+        return null;
+    }
+
     public void setLocations(List<Location> locationList) {
+        if (locationList.size() > 0)
+            locations.clear();
         LocationViewModel locationViewModel;
         for (Location loc : locationList) {
             locationViewModel = new LocationViewModel(loc);

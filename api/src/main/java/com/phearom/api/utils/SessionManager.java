@@ -24,6 +24,25 @@ public class SessionManager {
         return instance;
     }
 
+    public void saveUserData(String key, boolean val) {
+        mEditor.putBoolean(key, val);
+        mEditor.apply();
+    }
+
+    public void saveUserData(String key, String val) {
+        mEditor.putString(key, val);
+        mEditor.apply();
+    }
+
+    public boolean getUserData(String key, boolean def) {
+        return mShare.getBoolean(key, def);
+    }
+
+    public String getUserData(String key, String def) {
+        return mShare.getString(key, def);
+    }
+
+
     public void setEnabledGetDistance(boolean enabledGetDistance) {
         mEditor.putBoolean("enabledDistance", enabledGetDistance);
         mEditor.apply();

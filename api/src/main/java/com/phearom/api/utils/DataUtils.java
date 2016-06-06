@@ -2,7 +2,7 @@ package com.phearom.api.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.phearom.api.repositories.models.CountryModel;
+import com.phearom.api.repositories.defaultmodel.CountryModel;
 
 import java.util.ArrayList;
 import java.util.List;

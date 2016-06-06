@@ -1,5 +1,6 @@
 package com.phearom.superreminder.ui.fragment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,15 +10,21 @@ import android.view.ViewGroup;
 
 import com.phearom.api.core.binder.CompositeItemBinder;
 import com.phearom.api.core.binder.ItemBinder;
+import com.phearom.api.keys.IntentKeys;
+import com.phearom.api.repositories.RealmHelper;
 import com.phearom.superreminder.BR;
 import com.phearom.superreminder.R;
 import com.phearom.superreminder.binder.LocationBinder;
 import com.phearom.superreminder.databinding.FragmentLocationsBinding;
-import com.phearom.superreminder.model.Location;
+import com.phearom.superreminder.mappers.LocationMapper;
+import com.phearom.superreminder.model.realm.LocationRealm;
 import com.phearom.superreminder.viewmodel.LocationViewModel;
 import com.phearom.superreminder.viewmodel.LocationsViewModel;
 
-import java.util.UUID;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import io.realm.RealmResults;
 
 /**
  * Created by phearom on 5/19/16.
@@ -27,10 +34,17 @@ public class LocationsFragment extends BaseFragment {
     private FragmentLocationsBinding mBinding;
     private LocationsViewModel mViewModels;
 
-    public static LocationsFragment init(){
+    public static LocationsFragment init() {
         if (null == instance)
             instance = new LocationsFragment();
         return instance;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        RealmResults<LocationRealm> locationRealms = RealmHelper.init(getContext()).getObject(LocationRealm.class);
+        mBinding.getModels().setLocations(LocationMapper.toLocations(locationRealms));
     }
 
     @Nullable
@@ -47,15 +61,18 @@ public class LocationsFragment extends BaseFragment {
         mViewModels = new LocationsViewModel();
         mBinding.setModels(mViewModels);
         mBinding.setView(this);
+    }
 
-        Location loc;
-        for (int i = 0; i < 50; i++) {
-            loc = new Location();
-            loc.setId(UUID.randomUUID().toString().split("-")[0]);
-            loc.setLat(14);
-            loc.setLng(34);
-            loc.setName("Sample " + i);
-            mViewModels.addLocation(new LocationViewModel(loc));
+    @Override
+    protected void onReceivedBroadcast(String action, Intent data) {
+        super.onReceivedBroadcast(action, data);
+        try {
+            String id = data.getStringExtra("Id");
+            JSONObject jsonObject = new JSONObject(data.getExtras().getString(IntentKeys.EXTRA_DATA));
+            mBinding.getModels().findById(id).setDistance(jsonObject.getJSONObject("distance").getString("text"));
+            mBinding.getModels().findById(id).setTimeLeft(jsonObject.getJSONObject("duration").getString("text"));
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

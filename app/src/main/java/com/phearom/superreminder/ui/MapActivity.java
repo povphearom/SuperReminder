@@ -21,8 +21,8 @@
 //import com.phearom.api.core.binder.ItemBinder;
 //import com.phearom.api.maps.NormalMarker;
 //import com.phearom.api.repositories.RealmHelper;
-//import com.phearom.api.repositories.models.CountryModel;
-//import com.phearom.api.repositories.models.LocationRealm;
+//import com.phearom.api.repositories.defaultmodel.CountryModel;
+//import com.phearom.superreminder.model.realm.LocationRealm;
 //import com.phearom.api.utils.AppUtils;
 //import com.phearom.api.utils.DataUtils;
 //import com.phearom.api.utils.MapUtils;

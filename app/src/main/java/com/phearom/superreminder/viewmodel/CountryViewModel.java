@@ -2,7 +2,7 @@ package com.phearom.superreminder.viewmodel;
 
 import android.databinding.BaseObservable;
 
-import com.phearom.api.repositories.models.CountryModel;
+import com.phearom.api.repositories.defaultmodel.CountryModel;
 
 /**
  * Created by phearom on 5/11/16.

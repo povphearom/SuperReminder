@@ -2,7 +2,6 @@ package com.phearom.superreminder.ui.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -16,8 +15,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.phearom.api.maps.NormalMarker;
 import com.phearom.api.repositories.RealmHelper;
-import com.phearom.api.repositories.models.CountryModel;
-import com.phearom.api.repositories.models.LocationRealm;
+import com.phearom.api.repositories.defaultmodel.CountryModel;
+import com.phearom.superreminder.model.realm.LocationRealm;
 import com.phearom.api.utils.AppUtils;
 import com.phearom.api.utils.DataUtils;
 import com.phearom.api.utils.MapUtils;

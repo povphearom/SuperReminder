@@ -10,8 +10,10 @@ import android.widget.Switch;
 import com.phearom.api.core.listener.ClickHandler;
 import com.phearom.api.repositories.RealmHelper;
 import com.phearom.superreminder.BR;
-import com.phearom.superreminder.mappers.LocationMapper;
 import com.phearom.superreminder.model.Location;
+import com.phearom.superreminder.model.realm.LocationRealm;
+
+import io.realm.Realm;
 
 /**
  * Created by phearom on 5/19/16.
@@ -19,6 +21,29 @@ import com.phearom.superreminder.model.Location;
 public class LocationViewModel extends BaseObservable {
     private final Location location;
     private ClickHandler<LocationViewModel> optionHandler;
+
+    private String distance;
+    private String timeLeft;
+
+    @Bindable
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+        notifyPropertyChanged(BR.distance);
+    }
+
+    @Bindable
+    public String getTimeLeft() {
+        return timeLeft;
+    }
+
+    public void setTimeLeft(String timeLeft) {
+        this.timeLeft = timeLeft;
+        notifyPropertyChanged(BR.timeLeft);
+    }
 
     public LocationViewModel(Location location) {
         this.location = location;
@@ -28,8 +53,36 @@ public class LocationViewModel extends BaseObservable {
         return this.location;
     }
 
+    public String getId() {
+        return this.location.getId();
+    }
+
+    public double getLat() {
+        return this.location.getLat();
+    }
+
+    public double getLng() {
+        return this.location.getLng();
+    }
+
+    @Bindable
     public String getName() {
         return this.getLocation().getName();
+    }
+
+    public void setName(String name) {
+        this.location.setName(name);
+        notifyPropertyChanged(BR.name);
+    }
+
+    @Bindable
+    public String getAddress() {
+        return this.location.getAddress();
+    }
+
+    public void setAddress(String address) {
+        this.location.setAddress(address);
+        notifyPropertyChanged(BR.address);
     }
 
     @Bindable
@@ -37,8 +90,8 @@ public class LocationViewModel extends BaseObservable {
         return this.location.isAlert();
     }
 
-    public void setAlert(boolean isAlert) {
-        this.location.setAlert(isAlert);
+    public void setAlert(boolean alert) {
+        this.location.setAlert(alert);
         notifyPropertyChanged(BR.alert);
     }
 
@@ -60,10 +113,16 @@ public class LocationViewModel extends BaseObservable {
     public static void setSwitchListener(Switch switchView, final LocationViewModel locationViewModel) {
         switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 if (locationViewModel != null) {
                     locationViewModel.setAlert(isChecked);
-                    RealmHelper.init(buttonView.getContext()).addObject(LocationMapper.toLocationRealm(locationViewModel.getLocation()));
+                    final LocationRealm locationRealm = RealmHelper.init(buttonView.getContext()).getObject(LocationRealm.class).where().equalTo("id", locationViewModel.getId()).findFirst();
+                    RealmHelper.init(buttonView.getContext()).getRealm().executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            locationRealm.setAlert(isChecked);
+                        }
+                    });
                 }
             }
         });

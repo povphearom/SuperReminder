@@ -1,22 +1,19 @@
 package com.phearom.superreminder.ui;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.Toast;
 
+import com.phearom.api.utils.AnimUtils;
 import com.phearom.superreminder.R;
 import com.phearom.superreminder.databinding.ActivityMainBinding;
-import com.phearom.superreminder.ui.fragment.BaseFragment;
 import com.phearom.superreminder.ui.fragment.LocationsFragment;
 import com.phearom.superreminder.ui.fragment.MapFragment;
-import com.phearom.superreminder.ui.fragment.TimelineFragment;
-import com.phearom.superreminder.viewmodel.LocationsViewModel;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
 public class MainActivity extends BaseActivity implements OnMenuTabClickListener {
@@ -36,11 +33,11 @@ public class MainActivity extends BaseActivity implements OnMenuTabClickListener
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset == 0) {
-                    getBottomBar().animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-                    mBinding.fab.animate().translationY(-mBinding.fab.getHeight()).setInterpolator(new DecelerateInterpolator(2)).start();
+                    AnimUtils.enter(getBottomBar(), 0);
+                    AnimUtils.enter(mBinding.fab, -mBinding.fab.getHeight());
                 } else {
-                    getBottomBar().animate().translationY(mBinding.fab.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
-                    mBinding.fab.animate().translationY(mBinding.fab.getHeight() + getResources().getDimensionPixelSize(R.dimen.fab_margin)).setInterpolator(new AccelerateInterpolator(2)).start();
+                    AnimUtils.exit(getBottomBar(), mBinding.fab.getHeight());
+                    AnimUtils.exit(mBinding.fab, mBinding.fab.getHeight() + getResources().getDimensionPixelSize(R.dimen.fab_margin));
                 }
             }
         });
@@ -48,7 +45,8 @@ public class MainActivity extends BaseActivity implements OnMenuTabClickListener
         mBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Hello Snackbar", Toast.LENGTH_LONG).show();
+                if (getBottomBar().getCurrentTabPosition() == 0)
+                    startActivity(new Intent(MainActivity.this, ManageLocationActivity.class));
             }
         });
     }
@@ -60,14 +58,24 @@ public class MainActivity extends BaseActivity implements OnMenuTabClickListener
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onMenuTabSelected(@IdRes int menuItemId) {
         switch (menuItemId) {
             case R.id.action_schedule:
                 showFragment(mBinding.container.getId(), LocationsFragment.init());
                 break;
-            case R.id.action_timeline:
-                showFragment(mBinding.container.getId(), TimelineFragment.init());
-                break;
+//            case R.id.action_timeline:
+//                showFragment(mBinding.container.getId(), TimelineFragment.init());
+//                break;
             case R.id.action_room:
                 showFragment(mBinding.container.getId(), MapFragment.init());
                 break;

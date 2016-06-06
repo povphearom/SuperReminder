@@ -1,4 +1,4 @@
-package com.phearom.api.repositories.models;
+package com.phearom.api.repositories.defaultmodel;
 
 /**
  * Created by phearom on 5/11/16.
